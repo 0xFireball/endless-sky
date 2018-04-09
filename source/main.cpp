@@ -290,6 +290,8 @@ int main(int argc, char *argv[])
 			}
 			SDL_Keymod mod = SDL_GetModState();
 			Font::ShowUnderlines(mod & KMOD_ALT);
+
+            const Uint8 *kbState = SDL_GetKeyboardState(nullptr);
 			
 			// In fullscreen mode, hide the cursor if inactive for ten seconds,
 			// but only if the player is flying around in the main view.
@@ -308,7 +310,8 @@ int main(int argc, char *argv[])
 			// Caps lock slows the frame rate in debug mode, but raises it in
 			// normal mode. Slowing eases in and out over a couple of frames.
 			bool fastForward = false;
-			if(mod & KMOD_CAPS)
+
+			if(mod & KMOD_CAPS || kbState[SDL_SCANCODE_0])
 			{
 				if(debugMode)
 				{
